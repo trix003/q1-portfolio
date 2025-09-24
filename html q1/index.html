@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Feedback Form</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(to right, #3498db, #2c3e50);
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .form-container {
+            padding: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        .required::after {
+            content: " *";
+            color: #e74c3c;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+        
+        .radio-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        
+        .radio-option {
+            display: flex;
+            align-items: center;
+        }
+        
+        .radio-option input {
+            width: auto;
+            margin-right: 8px;
+        }
+        
+        .rating-stars {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+        
+        .star {
+            font-size: 2rem;
+            color: #ddd;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        
+        .star:hover, .star.active {
+            color: #f39c12;
+        }
+        
+        .consent {
+            display: flex;
+            align-items: flex-start;
+            margin-top: 10px;
+        }
+        
+        .consent input {
+            width: auto;
+            margin-right: 10px;
+            margin-top: 5px;
+        }
+        
+        button {
+            background: linear-gradient(to right, #3498db, #2c3e50);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: 600;
+            transition: all 0.3s;
+            width: 100%;
+            margin-top: 10px;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .multimedia-section {
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 30px;
+        }
+        
+        .multimedia-section h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .media-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .media-item {
+            text-align: center;
+            flex: 1;
+            min-width: 150px;
+        }
+        
+        .media-icon {
+            font-size: 3rem;
+            color: #3498db;
+            margin-bottom: 10px;
+        }
+        
+        .test-cases {
+            margin-top: 40px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+        }
+        
+        .test-cases h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .test-case {
+            background-color: white;
+            border-left: 4px solid #3498db;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .test-case h4 {
+            color: #2c3e50;
+            margin-bottom: 8px;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #2c3e50;
+            color: white;
+            margin-top: 30px;
+        }
+        
+        .portfolio-link {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .portfolio-link:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                border-radius: 10px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .form-container {
+                padding: 20px;
+            }
+            
+            .media-container {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Student Feedback Form</h1>
+            <p class="subtitle">Help us improve by sharing your experience</p>
+        </header>
+        
+        <div class="form-container">
+            <form id="feedbackForm">
+                <!-- Full Name Field -->
+                <div class="form-group">
+                    <label for="fullName" class="required">Full Name</label>
+                    <input type="text" id="fullName" name="fullName" placeholder="Enter your full name" required>
+                </div>
+                
+                <!-- Email Field -->
+                <div class="form-group">
+                    <label for="email" class="required">Email ID</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+                </div>
+                
+                <!-- Course Selection -->
+                <div class="form-group">
+                    <label for="course" class="required">Course</label>
+                    <select id="course" name="course" required>
+                        <option value="">Select your course</option>
+                        <option value="computer-science">Computer Science</option>
+                        <option value="mathematics">Mathematics</option>
+                        <option value="physics">Physics</option>
+                        <option value="chemistry">Chemistry</option>
+                        <option value="biology">Biology</option>
+                        <option value="engineering">Engineering</option>
+                        <option value="business">Business Administration</option>
+                        <option value="arts">Liberal Arts</option>
+                    </select>
+                </div>
+                
+                <!-- Rating Section -->
+                <div class="form-group">
+                    <label class="required">Course Rating</label>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="rating1" name="rating" value="1" required>
+                            <label for="rating1">1 (Poor)</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="rating2" name="rating" value="2">
+                            <label for="rating2">2</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="rating3" name="rating" value="3">
+                            <label for="rating3">3 (Average)</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="rating4" name="rating" value="4">
+                            <label for="rating4">4</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="rating5" name="rating" value="5">
+                            <label for="rating5">5 (Excellent)</label>
+                        </div>
+                    </div>
+                    
+                    <!-- Visual Star Rating -->
+                    <div class="rating-stars">
+                        <span class="star" data-value="1">★</span>
+                        <span class="star" data-value="2">★</span>
+                        <span class="star" data-value="3">★</span>
+                        <span class="star" data-value="4">★</span>
+                        <span class="star" data-value="5">★</span>
+                    </div>
+                </div>
+                
+                <!-- Comments Section -->
+                <div class="form-group">
+                    <label for="comments">Comments</label>
+                    <textarea id="comments" name="comments" rows="5" placeholder="Please share your detailed feedback about the course..."></textarea>
+                </div>
+                
+                <!-- Consent Checkbox -->
+                <div class="form-group">
+                    <div class="consent">
+                        <input type="checkbox" id="consent" name="consent" required>
+                        <label for="consent" class="required">I consent to submitting this feedback and understand that my responses will be used for course improvement purposes.</label>
+                    </div>
+                </div>
+                
+                <!-- Submit Button -->
+                <button type="submit">Submit Feedback</button>
+            </form>
+            
+            <!-- Multimedia Integration Section -->
+            <div class="multimedia-section">
+                <h3>Course Resources</h3>
+                <div class="media-container">
+                    <div class="media-item">
+                        <div class="media-icon">📚</div>
+                        <p>Course Materials</p>
+                    </div>
+                    <div class="media-item">
+                        <div class="media-icon">🎥</div>
+                        <p>Lecture Videos</p>
+                    </div>
+                    <div class="media-item">
+                        <div class="media-icon">🔊</div>
+                        <p>Audio Resources</p>
+                    </div>
+                    <div class="media-item">
+                        <div class="media-icon">📊</div>
+                        <p>Interactive Content</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Test Cases Section -->
+            <div class="test-cases">
+                <h3>Test Cases</h3>
+                
+                <div class="test-case">
+                    <h4>Typical Case</h4>
+                    <p><strong>Input:</strong> Valid name, email, course selection, rating 4, positive comments, consent checked</p>
+                    <p><strong>Expected Output:</strong> Form submits successfully with confirmation message</p>
+                </div>
+                
+                <div class="test-case">
+                    <h4>Edge Case</h4>
+                    <p><strong>Input:</strong> Minimum required fields only (name, email, course, rating, consent)</p>
+                    <p><strong>Expected Output:</strong> Form submits successfully without comments</p>
+                </div>
+                
+                <div class="test-case">
+                    <h4>Invalid Case</h4>
+                    <p><strong>Input:</strong> Invalid email format, missing required fields, no consent</p>
+                    <p><strong>Expected Output:</strong> Form shows validation errors and prevents submission</p>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Created with HTML5, CSS3, and JavaScript</p>
+                   </footer>
+    </div>
+
+    <script>
+        // Star rating interaction
+        const stars = document.querySelectorAll('.star');
+        const ratingInputs = document.querySelectorAll('input[name="rating"]');
+        
+        stars.forEach(star => {
+            star.addEventListener('click', function() {
+                const value = this.getAttribute('data-value');
+                
+                // Update visual stars
+                stars.forEach(s => {
+                    if (s.getAttribute('data-value') <= value) {
+                        s.classList.add('active');
+                    } else {
+                        s.classList.remove('active');
+                    }
+                });
+                
+                // Update corresponding radio button
+                document.getElementById(`rating${value}`).checked = true;
+            });
+            
+            star.addEventListener('mouseover', function() {
+                const value = this.getAttribute('data-value');
+                
+                stars.forEach(s => {
+                    if (s.getAttribute('data-value') <= value) {
+                        s.style.color = '#f39c12';
+                    } else {
+                        s.style.color = '#ddd';
+                    }
+                });
+            });
+            
+            star.addEventListener('mouseout', function() {
+                const selectedRating = document.querySelector('input[name="rating"]:checked');
+                
+                if (selectedRating) {
+                    const value = selectedRating.value;
+                    
+                    stars.forEach(s => {
+                        if (s.getAttribute('data-value') <= value) {
+                            s.style.color = '#f39c12';
+                        } else {
+                            s.style.color = '#ddd';
+                        }
+                    });
+                } else {
+                    stars.forEach(s => {
+                        s.style.color = '#ddd';
+                    });
+                }
+            });
+        });
+        
+        // Update stars when radio buttons change
+        ratingInputs.forEach(input => {
+            input.addEventListener('change', function() {
+                const value = this.value;
+                
+                stars.forEach(s => {
+                    if (s.getAttribute('data-value') <= value) {
+                        s.classList.add('active');
+                    } else {
+                        s.classList.remove('active');
+                    }
+                });
+            });
+        });
+        
+        // Form submission handling
+        document.getElementById('feedbackForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Basic validation
+            const fullName = document.getElementById('fullName').value;
+            const email = document.getElementById('email').value;
+            const course = document.getElementById('course').value;
+            const rating = document.querySelector('input[name="rating"]:checked');
+            const consent = document.getElementById('consent').checked;
+            
+            if (!fullName || !email || !course || !rating || !consent) {
+                alert('Please fill in all required fields.');
+                return;
+            }
+            
+            // Email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert('Please enter a valid email address.');
+                return;
+            }
+            
+            // If all validations pass
+            alert('Thank you for your feedback! Your response has been recorded.');
+            this.reset();
+            
+            // Reset stars
+            stars.forEach(s => {
+                s.classList.remove('active');
+                s.style.color = '#ddd';
+            });
+        });
+    </script>
+</body>
+</html>
